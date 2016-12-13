@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Generate JS Truth Table",
+        "command": "generatetruth"
+    }
+]

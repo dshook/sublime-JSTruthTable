@@ -1,0 +1,11 @@
+{
+  "name": "JSTruthTable",
+  "version": "0.0.1",
+  "description": "Generate truth tables in Sublime for JavaScript",
+  "main": "index.js",
+  "author": "Dillon Shook <dillonshook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babylon": "^6.14.1"
+  }
+}
