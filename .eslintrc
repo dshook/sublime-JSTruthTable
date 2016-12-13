@@ -1,0 +1,35 @@
+{
+  "env": {
+    "browser": false,
+    "amd": true,
+    "es6": true,
+    "node": true
+  },
+  "ecmaFeatures": {
+    "modules": true,
+  },
+  "rules": {
+    // Disabled
+    "no-alert": 0,
+    "no-mixed-spaces-and-tabs": 0,
+    "no-multi-spaces": 0,
+    "space-infix-ops": 0,
+    "quotes": 0,
+    "strict": 0,
+    "no-underscore-dangle": 0,
+    "dot-notation": 0,
+    "new-cap": 0,
+    "camelcase": 0,
+    // Warnings
+    "no-undef": 1,
+    "no-extra-semi": 1,
+    "no-trailing-spaces": 1,
+    // Errors
+
+    //disabled for now because of eslint problem
+    "no-unused-vars": [1, {"args": "none"}],
+  },
+  "globals": {
+    "module": true
+  }
+}
