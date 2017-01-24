@@ -15,7 +15,7 @@ let samples = [
   {in: 'for(let i = 0; i < 5 || a > 2; i++){}'},
   {in: ' if (!((milliseconds >= 0 && days >= 0 && months >= 0) || (milliseconds <= 0 && days <= 0 && months <= 0))) {'},
   {in: 'if ( !defined.setTimeout || config.updateRate <= 0 || ( ( new Date().getTime() - start ) < config.updateRate ) ) {'},
-  {in: 'while(i=n.iterateNext())'},
+  {in: 'while(i=n.iterateNext() && n.next())'},
   {in: 'while (base64String.length % 4) {'},
   {in: ' while ( new Date( targetYear, targetMonth, targetDate ).getMonth() !== targetMonth )'},
   {in: '( ( elem = elem[ +(dir == 1) ] ) && elem.nodeType !== 9 )'},
@@ -26,11 +26,20 @@ let samples = [
   {in: 'var status = age >= 18 ? "adult" : "minor";'},
 ];
 
-test('Extract Tests', t => {
-  t.plan(samples.length);
+test('Tests', t => {
+  t.plan(samples.length * 2);
 
   for(let sample of samples){
     let ast = extract.extract(sample.in);
     t.notEqual(ast, null, 'Extract ' + sample.in);
+    let astRooted = extract.findAstRoot(ast);
+    var acceptableRoots = ['LogicalExpression', 'BinaryExpression', 'UnaryExpression'];
+    t.ok(
+      astRooted
+      && astRooted.type
+      && acceptableRoots.includes(astRooted.type)
+      , 'Found Root ' + (astRooted || {}).type
+    );
   }
 });
+
