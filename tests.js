@@ -1,3 +1,6 @@
+var test = require('tape');
+var extract = require('./extract.js');
+
 let samples = [
   {in: 'false && true  || true      // returns true'},
   {in: 'false && (true || true)     // returns false'},
@@ -6,7 +9,7 @@ let samples = [
   {in: 'photoParam["needFront"] == 1 || photoParam["needBack"] == 1 || photoParam["needNohat"] == 1'},
   {in: 'if (time in m)'},
   {in: ' if (!Object.keys(data).length) return; // data hasn\'t loaded yet'},
-  {in: 'if((e.target == sidebarToggle[0]) || (e.target == $(\'.sidebar-toggle-line-wrap\')[0]) || (e.target == sidebarToggleLine1st[0]) || (e.target == sidebarToggleLine2nd[0]) || (e.target == sidebarToggleLine3rd[0])){'},
+  {in: 'if((e.target == sidebarToggle[0]) || (e.target == $(".sidebar-toggle-line-wrap")[0]) || (e.target == sidebarToggleLine1st[0]) || (e.target == sidebarToggleLine2nd[0]) || (e.target == sidebarToggleLine3rd[0])){'},
   {in: 'if (this.$element[0] instanceof document.constructor && !this.options.selector) {'},
   {in: 'if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1)'},
   {in: 'for(let i = 0; i < 5 || a > 2; i++){}'},
@@ -22,3 +25,12 @@ let samples = [
   {in: 'a > b ? c > d ? val1 : val3 : val2'},
   {in: 'var status = age >= 18 ? "adult" : "minor";'},
 ];
+
+test('Extract Tests', t => {
+  t.plan(samples.length);
+
+  for(let sample of samples){
+    let ast = extract.extract(sample.in);
+    t.notEqual(ast, null, 'Extract ' + sample.in);
+  }
+});
