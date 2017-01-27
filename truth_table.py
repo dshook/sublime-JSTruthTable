@@ -56,4 +56,5 @@ class GeneratetruthCommand(RefactorBaseClass):
 		cmd = ['node', REFACTOR_PLUGIN_FOLDER + 'index.js', selection]
 		refactoredText = self.executeNodeJsShell(cmd)
 
-		self.view.insert(edit, 0, refactoredText)
+		newBuffer = sublime.active_window().new_file()
+		newBuffer.insert(edit, 0, refactoredText)

@@ -17,7 +17,7 @@ function run(inputCode){
 }
 
 //The purpose here is to try to clean up the input code if it doesn't parse
-//This could mean anything from stripping off trailing brackets, to leading uncompleted if/for/while statements
+//This could mean anything from stripping off trailing brackets, to removing leading incomplete if/for/while statements
 function extract(inputCode){
   var ast = null;
   try{
@@ -82,6 +82,11 @@ function findAstRoot(ast){
     return findAstRoot(nextNode);
   }
   return null;
+}
+
+//Given one of the roots of an expression, evaluate all the possibilities
+function execute(ast){
+
 }
 
 //Check to see if there are an equal number of parens, and if not, add on enough at the beginning
