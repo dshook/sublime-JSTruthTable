@@ -1,14 +1,14 @@
 var babylon = require('babylon');
 
 function run(inputCode){
-  var ast = null;
   try{
-    ast = extract(inputCode);
+    var extracted = extract(inputCode);
 
-    if(!ast) return null;
+    if(!extracted) return null;
 
-    ast = findAstRoot(ast);
-    return JSON.stringify(ast, null, 4);
+    extracted.ast = findAstRoot(extracted.ast);
+    var evaluated = evaluate(extracted.ast);
+    return JSON.stringify(evaluated, null, 4);
   }catch(e){
     console.error('Could not extract input');
   }
@@ -31,13 +31,14 @@ function extract(inputCode){
       var betweenParenInput = balanceParens(inputCode.substring(firstParen, lastParen + 1).trim());
       try{
         ast = babylon.parse(betweenParenInput);
+        inputCode = betweenParenInput;
       }catch(e){
         console.error('Parse error ', e);
       }
     }
   }
 
-  return ast;
+  return {ast: ast, text: inputCode};
 }
 
 //This takes the ast and traverses it to find the logical/binary expression node to use as the root node
@@ -84,9 +85,22 @@ function findAstRoot(ast){
   return null;
 }
 
-//Given one of the roots of an expression, evaluate all the possibilities
-function execute(ast){
+//Given one of the roots of an expression, evaluate all the possibilities, returning something like this:
+// {
+//   evaluations: [
+//     {
+//       subExpressionValues: [
+//         {text: 'x', value: true},
+//         {text: 'y', value: false}
+//       ],
+//       expressionResult: false
+//     }
+//   ]
+// }
+function evaluate(ast){
+  if(ast.type === 'LogicalExpression'){
 
+  }
 }
 
 //Check to see if there are an equal number of parens, and if not, add on enough at the beginning

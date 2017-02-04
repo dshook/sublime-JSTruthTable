@@ -2,6 +2,8 @@ var test = require('tape');
 var extract = require('./extract.js');
 
 let samples = [
+  {in: 'x && y'},
+  {in: 'x || y'},
   {in: 'false && true  || true      // returns true'},
   {in: 'false && (true || true)     // returns false'},
   {in: 'a || b > 3 || ~0 > 0 || true'},
